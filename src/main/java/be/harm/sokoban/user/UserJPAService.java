@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserJPAService implements UserService {
+class UserJPAService implements UserService {
 
     private final UserRepository userRepository;
 

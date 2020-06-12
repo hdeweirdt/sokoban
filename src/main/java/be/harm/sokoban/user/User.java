@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Data
 @NoArgsConstructor
 public class User {
     private static final int MIN_USERNAME_LENGTH = 8;
@@ -19,6 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @Getter
@@ -37,7 +37,7 @@ public class User {
 
     @Getter
     @Setter
-    private boolean isAdmin = false;
+    private String role = "ROLE_USER";
 
     public User(String userName, String password) {
         setUserName(userName);

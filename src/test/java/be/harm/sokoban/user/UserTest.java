@@ -4,12 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 class UserTest {
 
     private User user;
 
-    private String validPassword = "Password123";
-    private String validUserName= "Username";
+    private final String validPassword = "Password123";
+    private final String validUserName= "Username";
 
     @AfterEach
     private void cleanUp() {
@@ -21,8 +23,9 @@ class UserTest {
     public void shouldNotBeAdminByDefault() {
         user = new User(validUserName, validPassword);
 
-        assertFalse(user.)
+        assertFalse(user.getRole().equals("ROLE_ADMIN"));
     }
+
     @Test
     public void shouldAcceptValidUserNameAndPassword() {
        user = new User(validUserName, validPassword);
