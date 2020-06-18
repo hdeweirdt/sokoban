@@ -1,12 +1,12 @@
-package be.harm.sokoban.user;
+package be.harm.sokoban.user.roles;
 
+import be.harm.sokoban.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -21,4 +21,12 @@ public class Role {
 
     @Getter
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<User>();
+
+    public Role(String name) {
+        this.name = name;
+    }
+
 }

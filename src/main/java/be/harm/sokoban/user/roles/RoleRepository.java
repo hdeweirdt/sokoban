@@ -1,7 +1,7 @@
-package be.harm.sokoban.user;
+package be.harm.sokoban.user.roles;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByUserName(String userName);
+public interface RoleRepository extends CrudRepository<Role, Long> {
+    Role findByName(String name);
 }

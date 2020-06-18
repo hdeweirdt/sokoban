@@ -1,14 +1,13 @@
 package be.harm.sokoban.user;
 
-import lombok.Data;
+import be.harm.sokoban.user.roles.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -22,6 +21,7 @@ public class User {
     private Long id;
 
     @Getter
+    @Column(unique = true)
     private String userName;
 
     @Getter
@@ -37,7 +37,13 @@ public class User {
 
     @Getter
     @Setter
-    private String role = "ROLE_USER";
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     public User(String userName, String password) {
         setUserName(userName);
@@ -45,29 +51,29 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        if(userName == null || userName.isEmpty()) {
+        if (userName == null || userName.isEmpty()) {
             throw new IllegalArgumentException("Empty username");
         }
-        if(userName.length() < MIN_USERNAME_LENGTH) {
+        if (userName.length() < MIN_USERNAME_LENGTH) {
             throw new IllegalArgumentException("Username must be " + MIN_USERNAME_LENGTH + " characters long");
         }
-        this.userName=userName;
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
-        if(password == null || password.isEmpty()) {
+        if (password == null || password.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        if(password.length() < MIN_PASSWORD_LENGTH) {
+        if (password.length() < MIN_PASSWORD_LENGTH) {
             throw new IllegalArgumentException("Password must be " + MIN_PASSWORD_LENGTH + " characters long");
         }
-        if(password.toLowerCase().equals(password)) {
+        if (password.toLowerCase().equals(password)) {
             throw new IllegalArgumentException("Password must contain at least 1 upper case character");
         }
-        if(password.toUpperCase().equals(password)) {
+        if (password.toUpperCase().equals(password)) {
             throw new IllegalArgumentException("Password must contain at least 1 lower case character");
         }
-        if(!password.matches(".*\\d.*")) {
+        if (!password.matches(".*\\d.*")) {
             throw new IllegalArgumentException("Password must contain at least 1 number");
         }
         this.password = password;

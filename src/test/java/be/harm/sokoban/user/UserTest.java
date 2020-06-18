@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserTest {
 
@@ -20,19 +20,19 @@ class UserTest {
 
 
     @Test
-    public void shouldNotBeAdminByDefault() {
+    void shouldHaveNoRolesByDefault() {
         user = new User(validUserName, validPassword);
 
-        assertFalse(user.getRole().equals("ROLE_ADMIN"));
+        assertTrue(user.getRoles().isEmpty());
     }
 
     @Test
-    public void shouldAcceptValidUserNameAndPassword() {
+    void shouldAcceptValidUserNameAndPassword() {
        user = new User(validUserName, validPassword);
     }
 
     @Test
-    public void shouldNotAllowPasswordWithoutNumber() {
+    void shouldNotAllowPasswordWithoutNumber() {
         String password = "nonumbershere";
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -41,7 +41,7 @@ class UserTest {
     }
 
     @Test
-    public void shouldNotAllowOnlyUppercasePassword() {
+    void shouldNotAllowOnlyUppercasePassword() {
         String password = "LONGENOUGH1";
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -50,7 +50,7 @@ class UserTest {
     }
 
     @Test
-    public void shouldNotAllowOnlyLowercasePassword() {
+    void shouldNotAllowOnlyLowercasePassword() {
         String password = "longenough1";
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -59,7 +59,7 @@ class UserTest {
     }
 
     @Test
-    public void shouldNotAllowTooShortPassword() {
+    void shouldNotAllowTooShortPassword() {
         String password = "short1";
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -68,7 +68,7 @@ class UserTest {
     }
 
     @Test
-    public void shouldNotAllowNullPassword() {
+    void shouldNotAllowNullPassword() {
         String password = null;
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -78,7 +78,7 @@ class UserTest {
 
 
     @Test
-    public void shouldNotAllowNullUsername() {
+    void shouldNotAllowNullUsername() {
         String username = null;
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
