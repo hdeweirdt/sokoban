@@ -5,7 +5,7 @@
     <title>Sokoban Users</title>
 </head>
 <body>
-<h1 th:text="${'All games'}">All available games you can play</h1>
+<h1 th:text="${'One game'}">All available games you can play</h1>
 
 <table>
     <thead>
@@ -15,10 +15,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="game : ${games}">
+    <tr>
         <td th:text="${game.id}">1</td>
         <td th:text="${game.name}">First game</td>
-        <td><a th:href="@{'games/' + ${game.id}}">Play</a></td>
     </tr>
     </tbody>
 </table>
