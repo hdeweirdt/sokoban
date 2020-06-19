@@ -1,6 +1,6 @@
 package be.harm.sokoban.bootstrap;
 
-import be.harm.sokoban.game.Board;
+import be.harm.sokoban.game.board.Board;
 import be.harm.sokoban.game.Game;
 import be.harm.sokoban.game.GameRepository;
 import be.harm.sokoban.user.User;

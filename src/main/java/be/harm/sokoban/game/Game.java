@@ -1,8 +1,8 @@
 package be.harm.sokoban.game;
 
+import be.harm.sokoban.game.board.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
