@@ -1,4 +1,4 @@
-package be.harm.sokoban.user.security;
+package be.harm.sokoban.security;
 
 import be.harm.sokoban.user.User;
 import be.harm.sokoban.user.UserRepository;
