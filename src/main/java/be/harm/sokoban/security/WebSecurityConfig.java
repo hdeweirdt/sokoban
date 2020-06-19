@@ -6,22 +6,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String H2CONSOLE_LOCATION = "/h2-console/**";
 
-    final DataSource dataSource;
-    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        this.dataSource = dataSource;
-        this.passwordEncoder = passwordEncoder;
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 

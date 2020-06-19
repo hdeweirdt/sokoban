@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/users")
-class UserController {
+public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
