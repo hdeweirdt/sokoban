@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Board {
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
