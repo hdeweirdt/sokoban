@@ -35,8 +35,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers(H2CONSOLE_LOCATION).permitAll()
                 .antMatchers("/users/new").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin();
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/games")
+                    .permitAll().and()
+                .logout()
+                    .permitAll();
         httpSecurity.csrf().ignoringAntMatchers(H2CONSOLE_LOCATION);
         httpSecurity.headers().frameOptions().sameOrigin();
     }

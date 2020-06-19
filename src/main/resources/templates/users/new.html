@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>New User</title>
 </head>
 <body>
 <h1>Register</h1>
-<form method="post">
-    Username: <input type="text" name="userName"/><br>
+<form method="post" th:action="@{/users/new}">
+    Username: <input type=" text" name="userName"/><br>
     First Name: <input type="text" name="firstName"/><br>
     Last Name: <input type="text" name="lastName"/><br>
     Password: <input type="password" name="password"/><br>
