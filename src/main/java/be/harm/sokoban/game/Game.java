@@ -2,11 +2,11 @@ package be.harm.sokoban.game;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +19,16 @@ public class Game {
     @Getter
     private String name;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @Getter
+    private List<Board> boards = new ArrayList<>();
+
     public Game(String name) {
         this.name = name;
+    }
+
+    public void addBoard(Board board) {
+        board.setGame(this);
+        boards.add(board);
     }
 }

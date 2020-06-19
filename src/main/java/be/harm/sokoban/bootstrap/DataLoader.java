@@ -1,5 +1,6 @@
 package be.harm.sokoban.bootstrap;
 
+import be.harm.sokoban.game.Board;
 import be.harm.sokoban.game.Game;
 import be.harm.sokoban.game.GameRepository;
 import be.harm.sokoban.user.User;
@@ -29,8 +30,17 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void saveGames() {
-        gameRepository.save(new Game("Game1"));
-        gameRepository.save(new Game("Game2"));
+        Board board1 = new Board();
+        Board board2 = new Board();
+        Board board3 = new Board();
+
+        Game game1 = new Game("Game1");
+        game1.addBoard(board1);
+        game1.addBoard(board2);
+        gameRepository.save(game1);
+        Game game2 = new Game("Game2");
+        game2.addBoard(board3);
+        gameRepository.save(game2);
     }
 
     private void saveRoles() {
@@ -40,7 +50,6 @@ public class DataLoader implements CommandLineRunner {
 
     private void saveAdmin() {
         User admin = new User("adminUser", "AdminWachtwoord1");
-
         userService.saveAdmin(admin);
     }
 }
