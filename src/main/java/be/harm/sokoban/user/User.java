@@ -27,16 +27,13 @@ public class User {
     @Getter
     private String password;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private String firstName;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private String lastName;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",

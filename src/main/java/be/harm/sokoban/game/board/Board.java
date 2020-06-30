@@ -17,14 +17,17 @@ public class Board {
     Long id;
 
     @ManyToOne()
-    @Getter
-    @Setter
+    @Getter @Setter
     @JoinColumn(name="game_id")
     private Game game;
 
     @Getter
     @Convert(converter = FieldsConverter.class, attributeName = "field")
     private Field[][] fields;
+
+    @Embedded
+    @Setter @Getter
+    private BoardPosition playerPosition;
 
     public Board(Field[][] fields) {
         this.fields = fields;
