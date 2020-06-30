@@ -1,5 +1,6 @@
 package be.harm.sokoban.bootstrap;
 
+import be.harm.sokoban.game.GameService;
 import be.harm.sokoban.game.board.Board;
 import be.harm.sokoban.game.Game;
 import be.harm.sokoban.game.GameRepository;
@@ -14,19 +15,20 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements CommandLineRunner {
     private final UserService userService;
     private final RoleRepository roleRepository;
-    private final GameRepository gameRepository;
+    private final GameService gameService;
 
-    public DataLoader(UserService userService, RoleRepository roleRepository, GameRepository gameRepository) {
+    public DataLoader(UserService userService, RoleRepository roleRepository, GameService gameService) {
         this.userService = userService;
         this.roleRepository = roleRepository;
-        this.gameRepository = gameRepository;
+        this.gameService = gameService;
     }
 
     @Override
     public void run(String... args) {
         saveRoles();
         saveAdmin();
-        saveGames();
+        // Disabled until saving boards works
+//        saveGames();
     }
 
     private void saveGames() {
@@ -37,10 +39,10 @@ public class DataLoader implements CommandLineRunner {
         Game game1 = new Game("Game1");
         game1.addBoard(board1);
         game1.addBoard(board2);
-        gameRepository.save(game1);
+        gameService.save(game1);
         Game game2 = new Game("Game2");
         game2.addBoard(board3);
-        gameRepository.save(game2);
+        gameService.save(game2);
     }
 
     private void saveRoles() {

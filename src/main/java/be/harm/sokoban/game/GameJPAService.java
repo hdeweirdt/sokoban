@@ -26,4 +26,9 @@ class GameJPAService implements GameService {
         return gameRepository.findById(id);
     }
 
+    @Override
+    public Game save(Game game) {
+        return gameRepository.save(game);
+    }
+
 }
