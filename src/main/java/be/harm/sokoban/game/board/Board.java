@@ -1,6 +1,8 @@
 package be.harm.sokoban.game.board;
 
+import be.harm.sokoban.game.Direction;
 import be.harm.sokoban.game.Game;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +19,9 @@ public class Board {
     Long id;
 
     @ManyToOne()
-    @Getter @Setter
-    @JoinColumn(name="game_id")
+    @Getter
+    @Setter
+    @JoinColumn(name = "game_id")
     private Game game;
 
     @Getter
@@ -26,8 +29,13 @@ public class Board {
     private Field[][] fields;
 
     @Embedded
-    @Setter @Getter
-    private BoardPosition playerPosition;
+    @AttributeOverrides({
+            @AttributeOverride(name = "row", column = @Column(name = "player_row")),
+            @AttributeOverride(name = "column", column = @Column(name = "player_column"))}
+    )
+    @Getter
+    @Setter(AccessLevel.PACKAGE)
+    private BoardPosition playerPosition = new BoardPosition(0, 0);
 
     public Board(Field[][] fields) {
         this.fields = fields;
@@ -44,5 +52,36 @@ public class Board {
                 fields[i][j] = new Floor();
             }
         }
+    }
+
+    public void movePlayer(Direction direction) {
+        final BoardPosition resultingPosition = playerPosition.getPositionOnSide(direction);
+
+        if (!positionOnBoard(resultingPosition)) {
+            throw new IllegalArgumentException("Cannot go off-board");
+        }
+
+        final Field resultingField = fields[resultingPosition.getRow()][resultingPosition.getColumn()];
+        if (resultingField.canBeCrossed()) {
+            setPlayerPosition(resultingPosition);
+            return;
+        }
+        if (resultingField.hasChest()) {
+            final var positionNextToChest = resultingPosition.getPositionOnSide(direction);
+            final var fieldNextToChest = fields[positionNextToChest.getRow()][positionNextToChest.getColumn()];
+            if (fieldNextToChest.canHoldChest()) {
+                // Move chest from from 1 field away to two fields away
+                fieldNextToChest.putChest();
+                resultingField.removeChest();
+
+                setPlayerPosition(resultingPosition);
+            }
+        }
+
+    }
+
+    private boolean positionOnBoard(BoardPosition resultingPosition) {
+        return resultingPosition.getRow() >= 0 && resultingPosition.getRow() < fields.length
+                && resultingPosition.getColumn() >= 0 && resultingPosition.getColumn() < fields[0].length;
     }
 }

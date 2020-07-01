@@ -1,34 +1,31 @@
 package be.harm.sokoban.game.board;
 
 
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
-public class Floor extends Field implements Serializable {
-
-    private boolean hasChest;
-
-    public Floor() {
-        hasChest = false;
-    }
+@NoArgsConstructor
+public class Floor extends Field {
 
     public Floor(boolean hasChest) {
-        this.hasChest = hasChest;
+        if(hasChest) { putChest(); } else { removeChest(); }
     }
 
     @Override
     public char getRepresentation() {
-        if(hasChest) {
+        if(hasChest()) {
            return 'U';
         }
         return ' ';
     }
 
-    public boolean setHasChest() {
-        return hasChest;
+    @Override
+    public boolean canBeCrossed() {
+        return !hasChest();
     }
 
-    public void setHasChest(boolean hasChest) {
-        this.hasChest = hasChest;
+    @Override
+    public boolean canHoldChest() {
+        return !hasChest();
     }
 
 }

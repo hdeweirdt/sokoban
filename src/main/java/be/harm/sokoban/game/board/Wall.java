@@ -7,4 +7,14 @@ public class Wall extends Field implements Serializable {
     public char getRepresentation() {
         return '#';
     }
+
+    @Override
+    public boolean canBeCrossed() {
+        return false;
+    }
+
+    @Override
+    public boolean canHoldChest() {
+        return false;
+    }
 }

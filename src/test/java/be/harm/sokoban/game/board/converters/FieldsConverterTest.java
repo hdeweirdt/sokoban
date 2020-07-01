@@ -65,7 +65,7 @@ class FieldsConverterTest {
         // Given
         Field[][] board = createEmptyBoard();
         Floor floorWithChest = new Floor();
-        floorWithChest.setHasChest(true);
+        floorWithChest.putChest();
         board[2][2] = floorWithChest;
 
         // When

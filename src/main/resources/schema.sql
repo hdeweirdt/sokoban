@@ -28,6 +28,8 @@ create table board
     id      bigint not null auto_increment,
     fields  char(100),
     game_id bigint,
+    player_row int,
+    player_column int,
     primary key (id),
     foreign key (game_id) references game(id)
 );

@@ -28,7 +28,7 @@ public class DataLoader implements CommandLineRunner {
         saveRoles();
         saveAdmin();
         // Disabled until saving boards works
-//        saveGames();
+        saveGames();
     }
 
     private void saveGames() {
@@ -38,10 +38,10 @@ public class DataLoader implements CommandLineRunner {
 
         Game game1 = new Game("Game1");
         game1.addBoard(board1);
-        game1.addBoard(board2);
+//        game1.addBoard(board2);
         gameService.save(game1);
         Game game2 = new Game("Game2");
-        game2.addBoard(board3);
+//        game2.addBoard(board3);
         gameService.save(game2);
     }
 

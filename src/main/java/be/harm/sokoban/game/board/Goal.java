@@ -7,4 +7,14 @@ public class Goal extends Field implements Serializable {
     public char getRepresentation() {
         return '*';
     }
+
+    @Override
+    public boolean canBeCrossed() {
+        return !hasChest();
+    }
+
+    @Override
+    public boolean canHoldChest() {
+        return true;
+    }
 }
