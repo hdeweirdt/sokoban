@@ -16,12 +16,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String H2CONSOLE_LOCATION = "/h2-console/**";
 
     final DataSource dataSource;
-    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
     public WebSecurityConfig(DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.dataSource = dataSource;
-        this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
 
