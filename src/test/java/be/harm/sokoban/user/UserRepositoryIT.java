@@ -1,6 +1,6 @@
 package be.harm.sokoban.user;
 
-import be.harm.sokoban.user.roles.Role;
+import be.harm.sokoban.user.security.ApplicationRole;
 import org.apache.commons.collections4.SetUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +26,7 @@ public class UserRepositoryIT {
     void usersShouldGetHaveAllRolesWhenLoaded() {
         // Given
         User user = new User("UserName1", "Wachtwoor1");
-        user.setRoles(SetUtils.hashSet(new Role(Role.ADMIN), new Role(Role.USER)));
+        user.setRoles(SetUtils.hashSet(ApplicationRole.ADMIN, ApplicationRole.PLAYER));
         User savedUser = userRepository.save(user);
 
         // When

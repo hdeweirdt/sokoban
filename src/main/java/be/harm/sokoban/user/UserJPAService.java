@@ -1,10 +1,10 @@
 package be.harm.sokoban.user;
 
-import be.harm.sokoban.user.roles.Role;
-import be.harm.sokoban.user.roles.RoleRepository;
+import be.harm.sokoban.user.security.ApplicationRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,12 +12,10 @@ import java.util.Set;
 class UserJPAService implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
-    public UserJPAService(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
+    public UserJPAService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -41,17 +39,12 @@ class UserJPAService implements UserService {
         return userRepository.save(user);
     }
 
-    private HashSet<Role> getDefaultAdminRoles() {
-        HashSet<Role> defaultRoles = new HashSet<>();
-        defaultRoles.add(roleRepository.findByName(Role.USER));
-        defaultRoles.add(roleRepository.findByName(Role.ADMIN));
-        return defaultRoles;
+    private Set<ApplicationRole> getDefaultAdminRoles() {
+        return Collections.singleton(ApplicationRole.ADMIN);
     }
 
-    private HashSet<Role> getDefaultUserRoles() {
-        HashSet<Role> defaultRoles = new HashSet<>();
-        defaultRoles.add(roleRepository.findByName(Role.USER));
-        return defaultRoles;
+    private Set<ApplicationRole> getDefaultUserRoles() {
+        return Collections.singleton(ApplicationRole.PLAYER);
     }
 
 }

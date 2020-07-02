@@ -1,6 +1,6 @@
 package be.harm.sokoban.user;
 
-import be.harm.sokoban.user.roles.Role;
+import be.harm.sokoban.user.security.ApplicationRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,13 +37,8 @@ public class User {
 
     @Getter
     @Setter
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    @Convert(converter = ApplicationRole.ApplicationRoleConverter.class)
+    private Set<ApplicationRole> roles = new HashSet<>();
 
     public User(String userName, String password) {
         setUserName(userName);
