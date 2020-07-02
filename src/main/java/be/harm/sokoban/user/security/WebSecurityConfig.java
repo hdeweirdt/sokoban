@@ -35,6 +35,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers(H2CONSOLE_LOCATION).permitAll()
                 .antMatchers("/users/new").permitAll()
+                .antMatchers("/users/all").hasAuthority(ApplicationPermission.USERS_READ.getPermission())
+                .antMatchers("/games/**").hasAuthority(ApplicationPermission.GAME_PLAY.getPermission())
                 .anyRequest().authenticated().and()
                 .formLogin();
         httpSecurity.csrf().ignoringAntMatchers(H2CONSOLE_LOCATION);
