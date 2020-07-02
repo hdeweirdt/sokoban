@@ -1,5 +1,6 @@
 package be.harm.sokoban.user.security;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.AttributeConverter;
@@ -22,6 +23,19 @@ public enum ApplicationRole {
         this.permissions = permissions;
     }
 
+    /**
+     * Returns all authorities associated with a role.
+     *
+     * @return the authoroties (by name) and the role (prefixed by ROLE_)
+     */
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities () {
+        var authorities =  permissions.stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.name()))
+                .collect(Collectors.toSet());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+
+        return authorities;
+    }
     @Converter
     public static class ApplicationRoleConverter implements AttributeConverter<Set<ApplicationRole>, String> {
 

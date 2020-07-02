@@ -16,12 +16,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String H2CONSOLE_LOCATION = "/h2-console/**";
 
     final DataSource dataSource;
-    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
     public WebSecurityConfig(DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.dataSource = dataSource;
-        this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
 
@@ -35,6 +33,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers(H2CONSOLE_LOCATION).permitAll()
                 .antMatchers("/users/new").permitAll()
+                .antMatchers("/users/all").hasAuthority(ApplicationPermission.USERS_READ.getPermission())
+                .antMatchers("/games/**").hasAuthority(ApplicationPermission.GAME_PLAY.getPermission())
                 .anyRequest().authenticated().and()
                 .formLogin();
         httpSecurity.csrf().ignoringAntMatchers(H2CONSOLE_LOCATION);
