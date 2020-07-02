@@ -20,7 +20,7 @@ class UserController {
         this.userService = userService;
     }
 
-    @GetMapping({"", "/", "/index", "/index.html"})
+    @GetMapping({"","/", "/all"})
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users/all";
@@ -39,6 +39,6 @@ class UserController {
         // Autologin
         request.login(savedUser.getUserName(), passwordBeforeHash);
 
-        return "redirect:/users";
+        return "redirect:games/all";
     }
 }

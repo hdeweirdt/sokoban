@@ -1,7 +1,6 @@
 package be.harm.sokoban.user;
 
-import be.harm.sokoban.user.roles.Role;
-import be.harm.sokoban.user.roles.RoleRepository;
+import be.harm.sokoban.user.security.ApplicationRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,9 +21,6 @@ class UserJPAServiceTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private RoleRepository roleRepository;
-
     @InjectMocks
     private UserJPAService userJPAService;
 
@@ -33,25 +29,9 @@ class UserJPAServiceTest {
         MockitoAnnotations.initMocks(this);
         // Thoughts: change to dummy implementations?
         when(passwordEncoder.encode(anyString())).then(returnsFirstArg());
-        when(roleRepository.findByName(Role.ADMIN)).thenReturn(new Role(Role.ADMIN));
-        when(roleRepository.findByName(Role.USER)).thenReturn(new Role(Role.USER));
         when(userRepository.save(any(User.class))).then(returnsFirstArg());
     }
 
-
-    @Test
-    void shouldGiveNewAdminUserRights() {
-        // Given
-        User user = new User("Username", "Wachtwoord1");
-
-        // When
-        User resultingUser = userJPAService.saveAdmin(user);
-
-        // Then
-        assertTrue(resultingUser.getRoles().size() >= 1);
-        assertTrue(resultingUser.getRoles().stream()
-                .anyMatch((role -> role.getName().equals(Role.USER))));
-    }
     @Test
     void shouldGiveNewAdminAdminRights() {
         // Given
@@ -61,13 +41,13 @@ class UserJPAServiceTest {
         User resultingUser = userJPAService.saveAdmin(user);
 
         // Then
-        assertTrue(resultingUser.getRoles().size() >= 1);
+        assertEquals(1, resultingUser.getRoles().size());
         assertTrue(resultingUser.getRoles().stream()
-                .anyMatch((role -> role.getName().equals(Role.ADMIN))));
+                .anyMatch((role -> role == ApplicationRole.ADMIN)));
     }
 
     @Test
-    void shouldGiveNewUserOnlyUserRights() {
+    void shouldGiveNewUserOnlyPlayerRights() {
         // Given
         User user = new User("Username", "Wachtwoord1");
 
@@ -77,6 +57,6 @@ class UserJPAServiceTest {
         // Then
         assertEquals(1, resultingUser.getRoles().size());
         assertTrue(resultingUser.getRoles().stream()
-                .anyMatch((role -> role.getName().equals(Role.USER))));
+                .anyMatch((role -> role == ApplicationRole.PLAYER)));
     }
 }
