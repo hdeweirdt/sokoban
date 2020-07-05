@@ -1,7 +1,7 @@
 package be.harm.sokoban.user.web;
 
-import be.harm.sokoban.user.User;
 import be.harm.sokoban.user.UserService;
+import be.harm.sokoban.user.commands.CreateUserCommand;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping({"","/", "/all"})
+    @GetMapping({"", "/", "/all"})
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users/all";
@@ -32,12 +32,11 @@ public class UserController {
     }
 
     @PostMapping(value = {"/new",})
-    public String registerUser(HttpServletRequest request, User user) throws ServletException {
-        String passwordBeforeHash = user.getPassword();
-        User savedUser = userService.saveUser(user);
+    public String registerUser(HttpServletRequest request, CreateUserCommand command) throws ServletException {
+        userService.saveUser(command.mapToUser());
 
         // Autologin
-        request.login(savedUser.getUserName(), passwordBeforeHash);
+        request.login(command.getUserName(), command.getPassword());
 
         return "redirect:/games";
     }

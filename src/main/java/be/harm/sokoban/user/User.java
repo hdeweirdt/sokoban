@@ -1,15 +1,15 @@
 package be.harm.sokoban.user;
 
 import be.harm.sokoban.user.security.ApplicationRole;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 public class User {
     private static final int MIN_USERNAME_LENGTH = 8;
