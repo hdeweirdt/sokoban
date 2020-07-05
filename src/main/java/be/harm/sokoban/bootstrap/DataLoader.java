@@ -20,9 +20,11 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        saveAdmin();
-        // Disabled until saving boards works
+        if(userService.findAll().isEmpty()) {
+            saveAdmin();
+            // Disabled until saving boards works
 //        saveGames();
+        }
     }
 
     private void saveGames() {

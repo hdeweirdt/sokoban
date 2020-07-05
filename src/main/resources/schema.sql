@@ -5,15 +5,9 @@ create table user
     last_name  varchar(255),
     password   varchar(255),
     user_name  varchar(255),
+    roles      varchar(255),
     primary key (id),
     unique (user_name)
-);
-
-create table role
-(
-    id   bigint not null auto_increment,
-    name varchar(255),
-    primary key (id)
 );
 
 create table game
@@ -33,13 +27,3 @@ create table board
     primary key (id),
     foreign key (game_id) references game(id)
 );
-
-create table user_roles
-(
-    user_id bigint not null,
-    role_id bigint not null,
-    primary key (user_id, role_id),
-    foreign key (role_id) references role(id),
-    foreign key (user_id) references user(id)
-);
-
