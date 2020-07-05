@@ -1,4 +1,4 @@
-package be.harm.sokoban.user.security;
+package be.harm.sokoban.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

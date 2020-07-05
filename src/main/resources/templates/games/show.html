@@ -5,20 +5,18 @@
     <title>Sokoban Users</title>
 </head>
 <body>
-<h1 th:text="${'All games'}">All available games you can play</h1>
+<h1 th:text="${game.name}">Name of the game</h1>
 
+<h2>Boards</h2>
 <table>
     <thead>
     <tr>
         <th>Id</th>
-        <th>Name</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="game : ${games}">
-        <td th:text="${game.id}">1</td>
-        <td th:text="${game.name}">First game</td>
-        <td><a th:href="@{'games/' + ${game.id}}">Play</a></td>
+    <tr th:each="board : ${game.getBoards()}">
+        <td th:text="${board.id}">1</td>
     </tr>
     </tbody>
 </table>

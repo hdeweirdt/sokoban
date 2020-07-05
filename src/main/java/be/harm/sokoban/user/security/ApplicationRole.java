@@ -30,7 +30,7 @@ public enum ApplicationRole {
      */
     public Set<SimpleGrantedAuthority> getGrantedAuthorities () {
         var authorities =  permissions.stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.name()))
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toSet());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
 
