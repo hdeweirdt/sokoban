@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserMvcController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserMvcController(UserService userService) {
         this.userService = userService;
     }
 

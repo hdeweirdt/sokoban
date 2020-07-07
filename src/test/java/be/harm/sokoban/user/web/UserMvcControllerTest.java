@@ -21,13 +21,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-class UserControllerTest {
+class UserMvcControllerTest {
 
     @Mock
     UserService userService;
 
     @InjectMocks
-    private UserController userController;
+    private UserMvcController userController;
 
 
     @Mock

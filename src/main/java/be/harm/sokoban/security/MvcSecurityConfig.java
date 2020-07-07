@@ -1,7 +1,6 @@
 package be.harm.sokoban.security;
 
 import be.harm.sokoban.user.security.ApplicationPermission;
-import be.harm.sokoban.user.security.ApplicationRole;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,12 +10,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+class MvcSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String H2CONSOLE_LOCATION = "/h2-console/**";
 
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(UserDetailsService userDetailsService) {
+    public MvcSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
