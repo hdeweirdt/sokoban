@@ -5,6 +5,7 @@ import be.harm.sokoban.game.GameService;
 import be.harm.sokoban.game.board.Board;
 import be.harm.sokoban.user.User;
 import be.harm.sokoban.user.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,12 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements CommandLineRunner {
     private final UserService userService;
     private final GameService gameService;
+
+    @Value("application.adminUserName")
+    private String adminUserName;
+
+    @Value("application.adminUserPassword")
+    private String adminPassword;
 
     public DataLoader(UserService userService, GameService gameService) {
         this.userService = userService;
@@ -42,7 +49,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void saveAdmin() {
-        User admin = new User("adminUser", "AdminWachtwoord1");
+        User admin = new User(adminUserName, adminPassword);
 
         userService.saveAdmin(admin);
     }
