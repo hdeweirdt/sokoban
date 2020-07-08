@@ -36,12 +36,12 @@ class SecurityConfig {
                     .antMatchers("/games").hasAuthority(ApplicationPermission.GAME_PLAY.getPermission())
                     .antMatchers("/").permitAll()
                     .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/games")
-                    .permitAll().and()
-                    .logout()
-                    .permitAll();
+                        .formLogin()
+                        .loginPage("/login")
+                            .defaultSuccessUrl("/games")
+                            .permitAll().and()
+                        .logout()
+                            .permitAll();
             httpSecurity.csrf().ignoringAntMatchers(H2CONSOLE_LOCATION);
             httpSecurity.headers().frameOptions().sameOrigin();
         }

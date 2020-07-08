@@ -3,14 +3,13 @@ package be.harm.sokoban.user.security;
 import org.apache.commons.collections4.SetUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ApplicationRoleConverterTest {
-    private ApplicationRole.ApplicationRoleConverter converter = new ApplicationRole.ApplicationRoleConverter();
+    private final ApplicationRole.ApplicationRoleConverter converter = new ApplicationRole.ApplicationRoleConverter();
 
     @Test
     public void convertingFromEntityToColumnAndBackShouldBeIdempotent() {
