@@ -1,6 +1,5 @@
 package be.harm.sokoban.security;
 
-import be.harm.sokoban.user.security.ApplicationPermission;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,7 +36,7 @@ class SecurityConfig {
 
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
-            httpSecurity.authorizeRequests()
+            httpSecurity.antMatcher("/**").authorizeRequests()
                     .antMatchers(H2CONSOLE_LOCATION).permitAll()
                     .antMatchers("/users/new").permitAll()
                     .antMatchers("/").permitAll()

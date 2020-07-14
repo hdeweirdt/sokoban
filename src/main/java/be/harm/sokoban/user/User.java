@@ -4,6 +4,9 @@ import be.harm.sokoban.user.security.ApplicationRole;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,9 +25,16 @@ public class User {
 
     @Getter
     @Column(unique = true)
+    @Size(min = 1)
+    @NotNull
     private String userName;
 
     @Getter
+    @NotNull
+    @Size(min = 8, message = "Password must contain at least 8 characters")
+    @Pattern.List({
+            @Pattern(regexp = ".*\\d.*", message = "Password must contain a number."),
+            @Pattern(regexp = ".*[A-Z].*", message = "Password must contain at least one capital letter")})
     private String password;
 
     @Getter
